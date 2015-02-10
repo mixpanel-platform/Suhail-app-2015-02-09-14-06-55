@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css" />
-    <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <script src="https://stage.mixpanel.com/libs/mixpanel-platform/build/mixpanel-platform.min.js"></script>
   </head>
   <body>
     <div id="eventSelect" style="float: left;"></div>
@@ -17,7 +17,6 @@
         var eventSelect = $('#eventSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        var eventGraph  = $('#graph').MPChart({chartType: 'line'});
         var eventTable  = $('#table').MPTable();
 
         var runQuery = function() {
@@ -27,7 +26,7 @@
 
           if (eventName) {
             MP.api.segment(eventName, propName, dateRange).done(function(results) {
-              eventGraph.MPChart('setData', results);
+              $('#graph').MPChart({chartType: 'line', data: results});
               eventTable.MPTable('setData', results);
             });
           }
